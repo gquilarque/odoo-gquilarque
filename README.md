@@ -18,3 +18,6 @@ This repository contains several modules developed on Odoo 10.
 
 Modules Details
 ---------------
+
+ * Modules about credit limit for customers.
+ * Modules about stock details and customization.
