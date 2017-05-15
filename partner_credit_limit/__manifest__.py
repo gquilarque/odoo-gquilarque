@@ -11,7 +11,7 @@
     'sequence': 15,
     'summary': 'Credit Limit and Overdue Payments',
     'website': '',
-    'depends': ['sales'],
+    'depends': ['sale'],
     'data': [
     ],
     'demo': [
