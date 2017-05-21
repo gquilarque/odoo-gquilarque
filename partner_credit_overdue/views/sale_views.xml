@@ -14,6 +14,17 @@
                             <field name="partner_credit_available"/>
                             <field name="credit_requested"/>
                         </group>
+                        <group>
+                            <separator string="Partner Overdue Payments" colspan="2"/>
+                            <field name="payment_overdue_ids" nolabel="1" colspan="2">
+                                <tree create='false' edit='false' delete='false'>
+                                    <field name="ref"/>
+                                    <field name="date"/>
+                                    <field name="date_maturity"/>
+                                    <field name="debit" sum='total'/>
+                                </tree>
+                            </field>
+                        </group>
                     </page>
                 </xpath>
             </field>
