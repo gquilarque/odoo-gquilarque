@@ -26,7 +26,12 @@ class SaleOrder(models.Model):
     payment_overdue_ids = fields.One2many(
         comodel_name='account.move.line',
         inverse_name='move_id',
-        string='Payment Overdue',
+        string='Payments Overdue',
+        compute="_compute_payment_overdue")
+    payment_pending_ids = fields.One2many(
+        comodel_name='account.move.line',
+        inverse_name='move_id',
+        string='Payments Pendings',
         compute="_compute_payment_overdue")
 
     @api.multi
@@ -38,6 +43,13 @@ class SaleOrder(models.Model):
                  ('account_id.user_type_id.type', '=', 'receivable'),
                  ('debit', '!=', 0),
                  ('move_id.state', '!=', 'draft'),
-                 ('reconciled', '=', False),
-                 ('date_maturity', '<=', fields.Date.today())])
-            sale.payment_overdue_ids = movelines
+                 ('reconciled', '=', False)])
+            movelines_overdue = []
+            movelines_pending = []
+            for move in movelines:
+                if move.date_maturity <= fields.Date.today():
+                    movelines_overdue.append(move.id)
+                else:
+                    movelines_pending.append(move.id)
+            sale.payment_overdue_ids = movelines_overdue
+            sale.payment_pending_ids = movelines_pending
